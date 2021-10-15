@@ -6,76 +6,84 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router";
-// import { CardContainer, PostButtonsContainer } from "./posts.styles";
-// import { Column } from "../../shared/shared.styles";
 import AuthContext from "../auth/authContext";
-// import PostButtons from "./PostButtons";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles((theme) => ({
+  cardContainer: {
+    width: "250px",
+    height: "250px",
+    [theme.breakpoints.down("sm")]: {
+      width: "350px",
+      height: "350px",
+    },
+    // [theme.breakpoints.down("lg")]: {
+    //   width: "350px",
+    //   height: "350px",
+    // },
+  },
+  cardMedia: {
+    width: "100%",
+    // [theme.breakpoints.down("sm")]: {
+    height: "70%",
+    // },
+  },
+  cardContent: {
+    display: "flex",
+    flexDirection: "column",
+    height: "30%",
+    // justifyContent: "center",
+    padding: "0px !important",
+    justifyContent: "center",
+  },
+  cardTitle: {
+    ...theme.typography.h1,
+    fontSize: "2rem",
+  },
+}));
 
 const PostCard = ({ post }) => {
+  const classes = useStyles();
   console.log("PostListCard Initiated: ", post);
   const history = useHistory();
   const { loggedIn } = useContext(AuthContext);
+  console.log("post.hiddenTitleFontSize: ", post.hiddenTitleFontSize);
 
   return (
     <Card
-      sx={{
-        width: "250px",
-        height: "250px",
-      }}
-      // md={{ maxWidth: "40vw", marginY: 5 }}
-      // lg={{ maxWidth: "40vw", marginY: 5 }}
+      className={classes.cardContainer}
       onClick={() => {
         console.log("post clicked!!");
         history.push(`/post/${post.id}`, post);
       }}
     >
-      <CardActionArea>
+      <CardActionArea style={{ height: "100%" }}>
         <CardMedia
+          className={classes.cardMedia}
           component="img"
-          height="150px"
           image={post.postURLs[0]}
           alt="You're probably not online"
         />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
+        <CardContent className={classes.cardContent}>
+          <Typography
+            variant="h1"
+            gutterbottom
+            align="center"
+            className={classes.cardTitle}
+            style={
+              post.hiddenTitleFontSize
+                ? { fontSize: post.hiddenTitleFontSize + "rem" }
+                : { fontSize: "2rem" }
+            }
+          >
             {post.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {post.caption}
           </Typography>
         </CardContent>
-        {/* <Grid
-            style={{ flex: 1 }}
-            onClick={() => {
-              console.log("post clicked!!");
-              history.push(`/post/${post.id}`, post);
-            }}
-          >
-            <img
-              id="postImageOne"
-              alt="Youre probably not online"
-              src={post.postURLs[0]}
-            />
-          </Grid>
-          <Grid style={{ flex: 1 }}>
-            <h3
-              onClick={() => {
-                console.log("post clicked!!");
-                history.push(`/post/${post.id}`, post);
-              }}
-            >
-              {post.title}
-            </h3>
-            <div>{post.caption}</div>
-            {/* <PostButtonsContainer className="postButtons">
-            {post.creator === loggedIn.user.uid && (
-              <PostButtons post={post} setEditPostData={setEditPostData} />
-            )}
-          </PostButtonsContainer> */}
-
-        {/* </Grid> */}
       </CardActionArea>
     </Card>
   );

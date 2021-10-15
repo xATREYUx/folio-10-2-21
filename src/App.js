@@ -15,6 +15,16 @@ const theme = createTheme({
   palette: {
     primary: { 500: "#E85B25" },
   },
+  typography: {
+    h1: {
+      fontFamily: "Bangers",
+    },
+    subtitle1: {
+      fontFamily: "Cuprum",
+      fontSize: "1rem",
+      fontWeight: 500,
+    },
+  },
 });
 
 axios.defaults.withCredentials = true;

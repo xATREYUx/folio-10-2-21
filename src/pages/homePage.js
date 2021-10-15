@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import React, { useContext } from "react";
 import { makeStyles } from "@mui/styles";
 import { ReactComponent as BlobTop } from "../shared/images/blobTop.svg";
@@ -22,7 +22,7 @@ import AboutThisSiteTwo from "../components/aboutThisSite/aboutThisSiteTwo";
 import LetsBuild from "../components/letsBuild";
 // import { AnimationFreeFall } from "../shared/SilhouetteBlocks/SilhouetteBlocks";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   sectionOne: {
     display: "flex",
     flexDirection: "column",
@@ -33,6 +33,7 @@ const useStyles = makeStyles({
   world: {
     height: "30vw",
     maxWidth: "250px",
+    // transform: "translatey(-30px)",
     /* margin: 40px; */
     /* margin-top: 60px; */
   },
@@ -51,9 +52,22 @@ const useStyles = makeStyles({
     position: "relative",
   },
   mainTitle: {
-    marginTop: "0px",
+    // display: "flex",
+    fontFamily: "Bangers",
+    fontSize: "3rem",
+    letterSpacing: ".2rem",
+    justifyContent: "center",
+    // marginX: "2rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "3rem",
+      width: "90%",
+      // padding: ".5rem",
+      marginTop: "0",
+      // marginLeft: "2rem",
+      marginBottom: "1rem",
+    },
   },
-});
+}));
 
 const HomePage = () => {
   const { loggedIn } = useContext(AuthContext);
@@ -74,12 +88,14 @@ const HomePage = () => {
           className={classes.coupleSitting}
         />
         <Grid container>
-          <Grid item align="center" item xs={12} md={6}>
-            <h1 className={classes.mainTitle}>React Engineering</h1>
+          <Grid item item xs={12} md={7} align="center">
+            <h1 className={classes.mainTitle}>
+              <div>React Engineering</div>
+            </h1>
             <AboutThisSite />
             <PostList posts={posts} dataLimit={4} pageLimit={4} title="" />
           </Grid>
-          <Grid item align="center" xs={12} md={6}>
+          <Grid item align="center" xs={12} md={5}>
             <AboutThisSiteTwo />
           </Grid>
         </Grid>

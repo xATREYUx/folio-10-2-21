@@ -25,7 +25,7 @@ const UserPage = () => {
   return (
     <Box>
       <Grid container>
-        <Grid item align="center" item xs={12} md={6}>
+        <Grid item item xs={12} md={6}>
           {/* <div>{loggedIn.user.email}</div> */}
           <PostList title={""} posts={posts} dataLimit={6} pageLimit={4} />
         </Grid>

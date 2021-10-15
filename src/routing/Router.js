@@ -13,7 +13,6 @@ import Register from "../components/auth/register";
 // import PostPage from "../pages/postPage";
 import AuthPage from "../pages/authPage";
 
-import { Paper } from "@mui/material";
 import NavBar from "../components/navbar";
 import PostPage from "../pages/postPage";
 

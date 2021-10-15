@@ -45,57 +45,54 @@ const NavBar = () => {
 
   return (
     <HideOnScroll>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar className={classes.navBar}>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              sx={{ flexGrow: 1 }}
-              className={classes.appTitle}
-              onClick={() => history.push("/home")}
-            >
-              @mattattheworld_
-            </Typography>
-            <div>
-              {loggedIn && (
-                <Box>
-                  <IconButton size="small">
-                    <div className="nav-icon" onClick={logout}>
-                      <FontAwesomeIcon icon={faSignOutAlt} color="white" />
-                    </div>
-                  </IconButton>
-                  <IconButton size="small">
-                    <div
-                      className="nav-icon"
-                      onClick={() => history.push("/user")}
-                    >
-                      <FontAwesomeIcon icon={faUserAstronaut} color="white" />
-                    </div>
-                  </IconButton>
-                </Box>
-              )}
-              {!loggedIn && (
-                <>
+      {/* <Box sx={{ flexGrow: 1 }}> */}
+      <AppBar className={classes.navBar}>
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            sx={{ flexGrow: 1 }}
+            className={classes.appTitle}
+            onClick={() => history.push("/home")}
+          >
+            @mattattheworld_
+          </Typography>
+          <div>
+            {loggedIn && (
+              <Box>
+                <IconButton size="small">
+                  <div className="nav-icon" onClick={logout}>
+                    <FontAwesomeIcon icon={faSignOutAlt} color="white" />
+                  </div>
+                </IconButton>
+                <IconButton size="small">
                   <div
                     className="nav-icon"
-                    onClick={() => history.push("/auth")}
+                    onClick={() => history.push("/user")}
                   >
-                    Sign In
+                    <FontAwesomeIcon icon={faUserAstronaut} color="white" />
                   </div>
-                </>
-              )}
-            </div>
-          </Toolbar>
-        </AppBar>
-      </Box>
+                </IconButton>
+              </Box>
+            )}
+            {!loggedIn && (
+              <>
+                <div className="nav-icon" onClick={() => history.push("/auth")}>
+                  Sign In
+                </div>
+              </>
+            )}
+          </div>
+        </Toolbar>
+      </AppBar>
+      {/* </Box> */}
     </HideOnScroll>
   );
 };

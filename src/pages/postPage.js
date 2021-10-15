@@ -45,7 +45,7 @@ const PostPage = (props) => {
       <div className="post-section-container">
         <h1>{postDetails.title}</h1>
         <Linkify>
-          <div className="post-content">{postDetails.content}</div>
+          <pre className="post-content">{postDetails.content}</pre>
         </Linkify>
         <img src={world} alt="logo" className={classes.worldFooter} />
       </div>

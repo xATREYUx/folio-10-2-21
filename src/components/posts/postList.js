@@ -1,14 +1,32 @@
-import { Grid, Paper } from "@mui/material";
+import { ClassNames } from "@emotion/react";
+import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useEffect, useContext } from "react";
 import PostCard from "./postCard";
 import PostContext from "./postContext";
 import { Pagination } from "./posts.styles";
+import { makeStyles } from "@mui/styles";
 
+const useStyles = makeStyles((theme) => ({
+  gridContainer: {
+    marginBottom: "2rem",
+  },
+  gridItem: {
+    [theme.breakpoints.down("")]: {
+      // fontSize: "3rem",
+      // width: "90%",
+      // padding: ".5rem",
+      // marginTop: "0",
+      // marginLeft: "2rem",
+      // marginBottom: "1rem",
+    },
+  },
+}));
 const PostList = ({ posts, dataLimit, pageLimit, title }) => {
   // const { posts } = useContext(PostContext);
-  const [pages, setPages] = useState();
+  const classes = useStyles();
 
+  const [pages, setPages] = useState();
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -35,17 +53,23 @@ const PostList = ({ posts, dataLimit, pageLimit, title }) => {
     return new Array(pageLimit).fill().map((_, idx) => start + idx + 1);
   };
   return (
-    <Box>
-      <h1>{title}</h1>
+    <Box marginBottom={5}>
+      {/* <h1>{title}</h1> */}
       <Grid
         container
         direction="row"
         justifyContent="center"
-        // alignItems="center"
-        spacing={3}
+        alignItems="left"
+        spacing={2}
+        // xs={12}
+        sm={12}
+        md={12}
+        lg={12}
+        // xl={12}
+        className={classes.gridContainer}
       >
         {getPaginatedData().map((post, index) => (
-          <Grid item>
+          <Grid item className={classes.gridItem}>
             <PostCard post={post} key={post.id} />{" "}
           </Grid>
         ))}
