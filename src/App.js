@@ -19,6 +19,10 @@ const theme = createTheme({
     h1: {
       fontFamily: "Bangers",
     },
+    h3: {
+      fontFamily: "Bangers",
+      letterSpacing: 1.4,
+    },
     subtitle1: {
       fontFamily: "Cuprum",
       fontSize: "1rem",

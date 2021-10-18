@@ -1,11 +1,19 @@
+import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
+import { makeStyles } from "@mui/styles";
 
-import Button from "./button";
+// import Button from "./button";
 import { ImageUploadContainer } from "./form-elements-style";
-
+const useStyles = makeStyles(() => ({
+  previewImage: {
+    width: "250px",
+    height: "175px",
+  },
+}));
 const ImageUpload = (props) => {
+  const classes = useStyles();
   const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
   const [isValid, setIsValid] = useState(false);
@@ -63,12 +71,18 @@ const ImageUpload = (props) => {
       />
       <div className={`image-upload ${props.center && "center"}`}>
         <div className="image-upload__preview">
-          {previewUrl && <img src={previewUrl} alt="Preview" />}
+          {previewUrl && (
+            <img
+              src={previewUrl}
+              alt="Preview"
+              className={classes.previewImage}
+            />
+          )}
           {!previewUrl && <p>Please pick an image.</p>}
         </div>
-        <button type="button" onClick={pickImageHandler}>
+        <Button variant="contained" onClick={pickImageHandler}>
           PICK IMAGE
-        </button>
+        </Button>
       </div>
       {!isValid && <p>{props.errorText}</p>}
     </Box>

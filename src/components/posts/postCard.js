@@ -37,10 +37,17 @@ const useStyles = makeStyles((theme) => ({
     // justifyContent: "center",
     padding: "0px !important",
     justifyContent: "center",
+    // textAlign: "justify",
   },
   cardTitle: {
     ...theme.typography.h1,
-    fontSize: "2rem",
+    fontSize: "1rem",
+  },
+  cardCaption: {
+    paddingLeft: ".5rem",
+    paddingRight: ".5rem",
+    lineHeight: "1.2 !important",
+    // alignItems: "center",
   },
 }));
 
@@ -80,7 +87,11 @@ const PostCard = ({ post }) => {
           >
             {post.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            className={classes.cardCaption}
+          >
             {post.caption}
           </Typography>
         </CardContent>

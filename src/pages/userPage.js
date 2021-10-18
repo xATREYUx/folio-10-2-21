@@ -7,15 +7,29 @@ import PostList from "../components/posts/postList";
 import PostContext from "../components/posts/postContext";
 import AuthContext from "../components/auth/authContext";
 // import EnterUserAdmin from "../components/admin/MakeUserAdmin";
+import { makeStyles } from "@mui/styles";
 
 import { getAuth } from "firebase/auth";
 import { Box } from "@mui/system";
 
+const useStyles = makeStyles((theme) => ({
+  userPageBox: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  userName: {
+    ...theme.typography.h3,
+    alignItems: "center",
+  },
+}));
+
 const UserPage = () => {
   const { getUsersPosts, usersPosts, posts } = useContext(PostContext);
   const { getLoggedIn, loggedIn, CheckAdmin } = useContext(AuthContext);
-
   const [editPostData, setEditPostData] = useState("");
+
+  const classes = useStyles();
 
   useEffect(() => {
     getUsersPosts();
@@ -23,13 +37,14 @@ const UserPage = () => {
 
   console.log("UserPage: ", usersPosts);
   return (
-    <Box>
+    <div className={classes.userPageBox}>
+      <h3 className={classes.userName}>{loggedIn.user.email}</h3>
       <Grid container>
-        <Grid item item xs={12} md={6}>
+        <Grid item align="center" xs={12} md={6}>
           {/* <div>{loggedIn.user.email}</div> */}
           <PostList title={""} posts={posts} dataLimit={6} pageLimit={4} />
         </Grid>
-        <Grid item align="center" item xs={12} md={6}>
+        <Grid item item xs={12} md={6}>
           <PostForm
             editPostData={editPostData}
             setEditPostData={setEditPostData}
@@ -39,7 +54,7 @@ const UserPage = () => {
           </div> */}
         </Grid>
       </Grid>
-    </Box>
+    </div>
   );
 };
 

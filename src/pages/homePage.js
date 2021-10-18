@@ -88,7 +88,7 @@ const HomePage = () => {
           className={classes.coupleSitting}
         />
         <Grid container>
-          <Grid item item xs={12} md={7} align="center">
+          <Grid item item xs={12} md={7}>
             <h1 className={classes.mainTitle}>
               <div>React Engineering</div>
             </h1>

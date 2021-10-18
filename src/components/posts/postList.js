@@ -69,7 +69,7 @@ const PostList = ({ posts, dataLimit, pageLimit, title }) => {
         className={classes.gridContainer}
       >
         {getPaginatedData().map((post, index) => (
-          <Grid item className={classes.gridItem}>
+          <Grid item align="center" className={classes.gridItem}>
             <PostCard post={post} key={post.id} />{" "}
           </Grid>
         ))}

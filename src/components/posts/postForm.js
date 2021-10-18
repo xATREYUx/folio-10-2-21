@@ -15,9 +15,9 @@ const useStyles = makeStyles({
     marginBottom: "3px",
   },
   formContainerS: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    // display: "flex",
+    // flexDirection: "column",
+    // alignItems: "center",
     margin: "1rem",
   },
 });
@@ -114,14 +114,10 @@ const PostForm = (props) => {
       autoComplete="off"
       onSubmit={handleSubmit(editMode === "Edit" ? editPost : submitPost)}
     >
-      <h1>{editMode} Post</h1>
+      <h3>{editMode} Post</h3>
       {/* <h1>{props.editPostData.id}</h1> */}
-      {/* <form
-        id="post-form"
-        onSubmit={handleSubmit(editMode === "Edit" ? editPost : submitPost)}
-        // enctype="multipart/form-data"
-      > */}
-      <Grid container spacing={1} sm={12} align="left">
+
+      <Grid container sm={12} align="left">
         <Grid item md={12} sm={12}>
           <TextField
             className={classes.textInput}
@@ -147,13 +143,7 @@ const PostForm = (props) => {
             }}
           />
         </Grid>
-        {/* <input
-          type="text"
-          placeholder="Title"
-          name="title"
-          defaultValue={props.editPostData.title || ""}
-          {...register("title")}
-        /> */}
+
         <br />
         <Grid item md={12} sm={12}>
           <TextField
@@ -165,19 +155,12 @@ const PostForm = (props) => {
             rows="2"
             variant="outlined"
             name="caption"
-            inputProps={{ maxLength: 45, style: { width: "250px" } }}
+            inputProps={{ maxLength: 70, style: { width: "250px" } }}
             defaultValue={props.editPostData.caption || ""}
             {...register("caption")}
           />
         </Grid>
-        {/* <input
-          type="text"
-          placeholder="42 Charachter Limit"
-          name="caption"
-          maxLength="42"
-          defaultValue={props.editPostData.caption || ""}
-          {...register("caption")}
-        /> */}
+
         <br />
         <TextField
           className={classes.textInput}
@@ -191,17 +174,10 @@ const PostForm = (props) => {
           {...register("content")}
         />
 
-        {/* <textarea
-          type="textarea"
-          placeholder="Content"
-          name="content"
-          cols="30"
-          rows="10"
-          defaultValue={props.editPostData.content || ""}
-          {...register("content")}
-        /> */}
         <br />
         <Grid item xs={12}>
+          <h4>Upload images in 1/.7 aspect ratio for best results</h4>
+
           <ImageUpload
             name="cardImage"
             displayName="Card Image"
