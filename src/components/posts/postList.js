@@ -9,7 +9,7 @@ import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
-    marginBottom: "2rem",
+    marginBottom: "1rem",
   },
   gridItem: {
     [theme.breakpoints.down("")]: {
@@ -60,17 +60,12 @@ const PostList = ({ posts, dataLimit, pageLimit, title }) => {
         direction="row"
         justifyContent="center"
         alignItems="left"
-        spacing={2}
-        // xs={12}
-        sm={12}
-        md={12}
-        lg={12}
-        // xl={12}
+        spacing={1}
         className={classes.gridContainer}
       >
         {getPaginatedData().map((post, index) => (
-          <Grid item align="center" className={classes.gridItem}>
-            <PostCard post={post} key={post.id} />{" "}
+          <Grid item key={post.id} align="center" className={classes.gridItem}>
+            <PostCard post={post} />
           </Grid>
         ))}
       </Grid>

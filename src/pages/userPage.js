@@ -40,7 +40,7 @@ const UserPage = () => {
     <div className={classes.userPageBox}>
       <h3 className={classes.userName}>{loggedIn.user.email}</h3>
       <Grid container>
-        <Grid item align="center" xs={12} md={6}>
+        <Grid item align="center" xs={12} sm={12} md={6}>
           {/* <div>{loggedIn.user.email}</div> */}
           <PostList title={""} posts={posts} dataLimit={6} pageLimit={4} />
         </Grid>

@@ -1,9 +1,11 @@
+import React, { useEffect, useContext, useRef } from "react";
+
 import { Grid } from "@mui/material";
-import React, { useContext } from "react";
 import { makeStyles } from "@mui/styles";
 import { ReactComponent as BlobTop } from "../shared/images/blobTop.svg";
 import world from "../shared/images/logo.svg";
 import blobTop from "../shared/images/blobTop.svg";
+import { ReactComponent as BubbleBlobs } from "../shared/images/bubbleBlobs.svg";
 // import PostList from "../components/posts/postList";
 import {
   AnimationLookDown,
@@ -51,30 +53,36 @@ const useStyles = makeStyles((theme) => ({
     // display: "flex",
     position: "relative",
   },
-  mainTitle: {
-    // display: "flex",
-    fontFamily: "Bangers",
-    fontSize: "3rem",
-    letterSpacing: ".2rem",
-    justifyContent: "center",
-    // marginX: "2rem",
-    [theme.breakpoints.down("sm")]: {
-      fontSize: "3rem",
-      width: "90%",
-      // padding: ".5rem",
-      marginTop: "0",
-      // marginLeft: "2rem",
-      marginBottom: "1rem",
-    },
+  bubbleBlobs: {
+    zIndex: "-2",
+    position: "absolute",
+    width: "40%",
+    height: "60vh",
+    bottom: "-1400px",
   },
 }));
 
 const HomePage = () => {
   const { loggedIn } = useContext(AuthContext);
   const { posts } = useContext(PostContext);
+  const bubblesRef = useRef();
 
   console.log("HomePage loggedIn", loggedIn);
   const classes = useStyles();
+
+  useEffect(() => {
+    const parallax = () => {
+      if (bubblesRef.current) {
+        let scrolledValue = window.scrollY / 3.5;
+        bubblesRef.current.style.transform = `translateY(
+      -${scrolledValue + "px"} 
+      )`;
+      }
+    };
+    window.addEventListener("scroll", parallax);
+    return () => window.removeEventListener("scroll", parallax);
+  }, [bubblesRef]);
+
   return (
     <Box>
       <div className={classes.sectionOne}>
@@ -89,9 +97,6 @@ const HomePage = () => {
         />
         <Grid container>
           <Grid item item xs={12} md={7}>
-            <h1 className={classes.mainTitle}>
-              <div>React Engineering</div>
-            </h1>
             <AboutThisSite />
             <PostList posts={posts} dataLimit={4} pageLimit={4} title="" />
           </Grid>
@@ -99,6 +104,7 @@ const HomePage = () => {
             <AboutThisSiteTwo />
           </Grid>
         </Grid>
+        <BubbleBlobs className={classes.bubbleBlobs} ref={bubblesRef} />
       </div>
     </Box>
   );

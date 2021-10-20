@@ -67,16 +67,13 @@ const NavBar = () => {
           <div>
             {loggedIn && (
               <Box>
-                <IconButton size="small">
-                  <div
-                    className="nav-icon"
-                    onClick={() => history.push("/user")}
-                  >
+                <IconButton size="small" onClick={() => history.push("/user")}>
+                  <div className="nav-icon">
                     <FontAwesomeIcon icon={faUserAstronaut} color="white" />
                   </div>
                 </IconButton>
-                <IconButton size="small">
-                  <div className="nav-icon" onClick={logout}>
+                <IconButton size="small" onClick={logout}>
+                  <div className="nav-icon">
                     <FontAwesomeIcon icon={faSignOutAlt} color="white" />
                   </div>
                 </IconButton>

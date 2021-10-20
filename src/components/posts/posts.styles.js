@@ -38,8 +38,8 @@ export const Pagination = styled.div`
     border: 2px solid #666;
     padding: 10px 15px;
     border-radius: 50%;
-    height: 45px;
-    width: 45px;
+    height: 35px;
+    width: 35px;
     position: relative;
     margin: 0 5px;
     cursor: pointer;
@@ -56,6 +56,7 @@ export const Pagination = styled.div`
   .next {
     background: #fff;
     border: none;
+    border-radius: 5px;
     padding: 10px;
     color: black;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);

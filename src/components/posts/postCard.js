@@ -3,7 +3,6 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Grid,
   Typography,
 } from "@mui/material";
 import { useContext, useState } from "react";
@@ -15,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   cardContainer: {
     width: "250px",
     height: "250px",
+
     [theme.breakpoints.down("sm")]: {
       width: "350px",
       height: "350px",
@@ -60,6 +60,7 @@ const PostCard = ({ post }) => {
 
   return (
     <Card
+      key={post.id}
       className={classes.cardContainer}
       onClick={() => {
         console.log("post clicked!!");
@@ -76,7 +77,7 @@ const PostCard = ({ post }) => {
         <CardContent className={classes.cardContent}>
           <Typography
             variant="h1"
-            gutterbottom
+            // gutterBottom
             align="center"
             className={classes.cardTitle}
             style={

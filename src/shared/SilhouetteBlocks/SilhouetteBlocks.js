@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
 import PersonDown from "../images/personDown@3x.png";
 import FreeFall from "../images/freefall.svg";
@@ -23,19 +23,20 @@ const useStyles = makeStyles(() => ({
     width: "100%",
     zindex: "2",
     height: "10px",
+    top: "160px",
   },
   personFalling: {
     position: "absolute",
     height: "30px",
-    transform: "scaleX(-1) translate(-10px)",
+    // transform: "scaleX(-1)",
     left: "-120px",
-    top: "300px",
+    // top: "0px",
   },
-  manHanging: {},
 }));
 
 export const AnimationLookDown = () => {
   const classes = useStyles();
+
   return (
     <div className={classes.animationLookdownContainer}>
       <img src={PersonDown} alt="person down" className={classes.personDown} />
@@ -45,11 +46,28 @@ export const AnimationLookDown = () => {
 
 export const AnimationFreeFall = () => {
   const classes = useStyles();
+  const freefall = useRef();
+
+  useEffect(() => {
+    const parallax = () => {
+      if (freefall.current) {
+        let scrolledValue = window.scrollY / 4.5;
+        freefall.current.style.transform = `translateY(
+      ${scrolledValue + "px"} 
+      )`;
+        // console.log("scrolling...", scrolledValue);
+        // console.log("start location", startlocation);
+      }
+    };
+    window.addEventListener("scroll", parallax);
+    return () => window.removeEventListener("scroll", parallax);
+  }, [freefall]);
   return (
     <div className={classes.animationFreeFallContainer}>
       <img
+        ref={freefall}
         src={FreeFall}
-        alt="person-fallng"
+        alt="person-falling"
         className={classes.personFalling}
       />
     </div>

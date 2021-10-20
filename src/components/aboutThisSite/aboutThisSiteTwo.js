@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Paper, Typography } from "@mui/material";
 import {
   AnimationFreeFall,
@@ -21,6 +22,21 @@ const useStyles = makeStyles((theme) => ({
 
 const AboutThisSiteTwo = () => {
   const classes = useStyles();
+  // const freefall = useRef();
+
+  // useEffect(() => {
+  //   const parallax = () => {
+  //     if (freefall.current) {
+  //       let scrolledValue = window.scrollY / 3.5;
+  //       freefall.current.style.transform = `translateY(
+  //     -${scrolledValue + "px"}
+  //     )`;
+  //       console.log("scrolling...", scrolledValue);
+  //     }
+  //   };
+  //   window.addEventListener("scroll", parallax);
+  //   return () => window.removeEventListener("scroll", parallax);
+  // }, [freefall]);
 
   return (
     <Paper className={classes.aboutThisSiteTwoContainer}>
