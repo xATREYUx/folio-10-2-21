@@ -22,6 +22,7 @@ import PostList from "../components/posts/postList";
 import PostContext from "../components/posts/postContext";
 import AboutThisSiteTwo from "../components/aboutThisSite/aboutThisSiteTwo";
 import LetsBuild from "../components/letsBuild";
+import ContactUs from "../components/contacts/NewContactForm";
 // import { AnimationFreeFall } from "../shared/SilhouetteBlocks/SilhouetteBlocks";
 
 const useStyles = makeStyles((theme) => ({
@@ -102,6 +103,7 @@ const HomePage = () => {
           </Grid>
           <Grid item align="center" xs={12} md={5}>
             <AboutThisSiteTwo />
+            <ContactUs />
           </Grid>
         </Grid>
         <BubbleBlobs className={classes.bubbleBlobs} ref={bubblesRef} />

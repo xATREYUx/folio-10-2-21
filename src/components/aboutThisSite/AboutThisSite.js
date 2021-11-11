@@ -33,15 +33,11 @@ const useStyles = makeStyles((theme) => ({
   },
   mainTitle: {
     color: "white",
-
     fontFamily: "Bangers",
     fontSize: "3rem",
     letterSpacing: ".2rem",
     [theme.breakpoints.down("sm")]: {
       fontSize: "2rem",
-      // width: "100%",
-      // margin: "0",
-      // marginBottom: "1rem",
     },
   },
 }));
@@ -51,7 +47,6 @@ export default function BasicCard() {
   return (
     <Box className={classes.aboutThisSiteContainer}>
       <h1 className={classes.mainTitle}>React Engineering</h1>
-
       <div className={classes.aboutThisSiteType}>
         Using ReactJS and Node I create single-page apps and components capable
         of monetization, data charting, api calls, user authentication and

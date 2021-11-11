@@ -11,6 +11,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { AuthContextProvider } from "./components/auth/authContext";
 import { PostContextProvider } from "./components/posts/postContext";
 
+require("dotenv").config();
+
 const theme = createTheme({
   palette: {
     primary: { 500: "#E85B25" },
@@ -28,6 +30,24 @@ const theme = createTheme({
       fontSize: "1rem",
       fontWeight: 500,
     },
+    body: {
+      fontFamily: "Cuprum",
+      fontSize: "1.5rem",
+      fontWeight: 400,
+      background: "white",
+    },
+    blogPost: {
+      overflowX: "auto",
+      whiteSpace: "pre-wrap",
+      wordWrap: "break-word",
+      fontFamily: "Cuprum",
+      fontSize: "1.5rem",
+      fontWeight: 400,
+      background: "white",
+    },
+    // input: {
+    //   backgroundColor: "white",
+    // },
   },
 });
 

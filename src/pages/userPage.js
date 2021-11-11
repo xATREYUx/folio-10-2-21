@@ -28,6 +28,7 @@ const UserPage = () => {
   const { getUsersPosts, usersPosts, posts } = useContext(PostContext);
   const { getLoggedIn, loggedIn, CheckAdmin } = useContext(AuthContext);
   const [editPostData, setEditPostData] = useState("");
+  const [resetForm, setResetForm] = useState(false);
 
   const classes = useStyles();
 

@@ -63,9 +63,14 @@ const ImageUpload = (props) => {
     }
   }, [file, props.previewImage]);
 
+  // useEffect(() => {
+  //   // filePickerRef.current.value = "";
+  //   // setPreviewUrl("");
+  // }, [props.resetImage]);
+
   const pickedHandler = (event) => {
     console.log("pickedHandler", event.target);
-    let pickedFile;
+    let pickedFile = "";
     let fileIsValid = isValid;
     if (event.target.files && event.target.files.length === 1) {
       pickedFile = event.target.files[0];
@@ -86,6 +91,7 @@ const ImageUpload = (props) => {
 
   return (
     <Box className={classes.inputContainer}>
+      {/* <div>{filePickerRef?.current?.value}</div> */}
       <div className={classes.previewContainer}>
         {previewUrl && (
           <img

@@ -15,6 +15,7 @@ import AuthPage from "../pages/authPage";
 
 import NavBar from "../components/navbar";
 import PostPage from "../pages/postPage";
+import ScrollToTop from "./scrollToTop";
 
 const Router = () => {
   const { loggedIn, getLoggedIn } = useContext(AuthContext);
@@ -29,6 +30,7 @@ const Router = () => {
     <BrowserRouter>
       <div>
         <NavBar />
+        <ScrollToTop />
         <Switch>
           <AuthRoute path="/auth" component={AuthPage} />
           {/* <AuthRoute path="/register" component={Register} /> */}

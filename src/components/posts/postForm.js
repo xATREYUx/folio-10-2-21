@@ -1,14 +1,16 @@
 import { useState, useContext, useEffect } from "react";
-// import { FormContainer } from "./posts.styles";
-import ImageUpload from "../form-elements/ImageUpload";
 import PostContext from "./postContext";
-import { appendErrors, useForm } from "react-hook-form";
+import {
+  appendErrors,
+  FormProvider,
+  useForm,
+  Controller,
+} from "react-hook-form";
 import { Button } from "@mui/material";
 import { Grid, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import { makeStyles } from "@mui/styles";
-
-// import { createPost } from "./postActions";
+import ImageInput from "./imageInput";
 
 const useStyles = makeStyles({
   textInput: {
@@ -29,11 +31,12 @@ const PostForm = (props) => {
   const classes = useStyles();
 
   const { setPosts, createPost, updatePost } = useContext(PostContext);
+
   const [editMode, setEditMode] = useState("Create");
   const [pickedCardImage, setPickedCardImage] = useState();
   const [pickedCardImageOne, setPickedCardImageOne] = useState();
   const [pickedCardImageTwo, setPickedCardImageTwo] = useState();
-  const [resetComponent, setResetComponent] = useState(false);
+  const [activateReset, setActivateReset] = useState(false);
   const [editPostId, setEditPostId] = useState();
   const [postTitleInput, setPostTitleInput] = useState("");
   const [fontSize, setFontSize] = useState(2);
@@ -43,36 +46,36 @@ const PostForm = (props) => {
     console.log("fontSize effect", fontSize);
   }, [postTitleInput]);
 
+  const methods = useForm();
   const {
     register,
     handleSubmit,
     reset,
     getValues,
     formState: { errors },
-  } = useForm("");
-
-  const resetForm = () => setResetComponent(!resetComponent);
+    useFormContext,
+  } = methods;
+  // const resetForm = () => setResetComponent(!resetComponent);
 
   const submitPost = async (data) => {
     console.log("send data", data);
     console.log("send pickedCardImage", pickedCardImage);
     var formData = new FormData();
     const values = getValues();
+    console.log("values log", values);
     try {
       const dataFunction = async () => {
         formData.append("title", values.title);
         formData.append("caption", values.caption);
         formData.append("content", values.content);
-        formData.append("cardImage", pickedCardImage);
-        formData.append("postImageOne", pickedCardImageOne);
-        formData.append("postImageTwo", pickedCardImageTwo);
+        formData.append("cardImage", values.cardImage[0]);
+        formData.append("postImage", values.postImage[0]);
         formData.append("hiddenTitleFontSize", fontSize);
-        // props.addNewPost((prevState) => [response.post, ...prevState]);
       };
       await dataFunction();
-
       await createPost(formData);
       console.log("postForm formData", formData);
+      setActivateReset(!activateReset);
       reset();
     } catch (err) {
       console.log("submitPost error", err);
@@ -95,7 +98,6 @@ const PostForm = (props) => {
       };
       await dataFunction();
       await updatePost({ formData, editPostId });
-      resetForm();
       reset();
     } catch (err) {
       console.log("editPost error", err);
@@ -110,90 +112,97 @@ const PostForm = (props) => {
   };
 
   return (
-    <Box
-      className={classes.formContainer}
-      component="form"
-      noValidate
-      autoComplete="off"
-      onSubmit={handleSubmit(editMode === "Edit" ? editPost : submitPost)}
-    >
-      <h2>{editMode} Post</h2>
-      {/* <h1>{props.editPostData.id}</h1> */}
+    <FormProvider {...methods}>
+      <Box
+        className={classes.formContainer}
+        component="form"
+        noValidate
+        autoComplete="off"
+        onSubmit={handleSubmit(editMode === "Edit" ? editPost : submitPost)}
+      >
+        <h2>{editMode} Post</h2>
+        <Grid container justifyContent="center">
+          <Grid item md={12} sm={12}>
+            <Box position="relative">
+              <TextField
+                className={classes.textInput}
+                margin="normal"
+                id="outlined-basic"
+                label="Title"
+                variant="outlined"
+                name="title"
+                inputProps={{
+                  maxLength: 35,
+                  style: {
+                    width: "250px",
+                    fontFamily: "Bangers",
+                    fontWeight: 500,
+                    fontSize: `${fontSize}rem`,
+                  },
+                }}
+                defaultValue={props.editPostData.title || ""}
+                {...register("title")}
+                onChange={(e) => {
+                  console.log("event", e.target.value);
+                  setPostTitleInput(e.target.value);
+                }}
+              />
+              <br />
+              <TextField
+                className={classes.textInput}
+                margin="normal"
+                id="outlined-basic"
+                label="Caption"
+                multiline
+                rows="2"
+                variant="outlined"
+                name="caption"
+                inputProps={{ maxLength: 70, style: { width: "250px" } }}
+                defaultValue={props.editPostData.caption || ""}
+                {...register("caption")}
+              />
+              <br />
+              <TextField
+                className={classes.textInput}
+                fullWidth
+                margin="normal"
+                rows="10"
+                // id="outlined-multiline-flexible"
+                label="Content"
+                multiline
+                defaultValue={props.editPostData.content || ""}
+                {...register("content")}
+              />
+              {/* <input
+                type="file"
+                accept=".jpg,.png,.jpeg"
+                {...register("cardImage")}
+              /> */}
+            </Box>
+          </Grid>
+          <br />
 
-      <Grid container justifyContent="center">
-        <Grid item md={12} sm={12}>
-          <Box position="relative">
-            <TextField
-              className={classes.textInput}
-              margin="normal"
-              id="outlined-basic"
-              label="Title"
-              variant="outlined"
-              name="title"
-              inputProps={{
-                maxLength: 35,
-                style: {
-                  width: "250px",
-                  fontFamily: "Bangers",
-                  fontWeight: 500,
-                  fontSize: `${fontSize}rem`,
-                },
-              }}
-              defaultValue={props.editPostData.title || ""}
-              {...register("title")}
-              onChange={(e) => {
-                console.log("event", e.target.value);
-                setPostTitleInput(e.target.value);
-              }}
-            />
+          <Grid item>
+            <Box display="flex">
+              {/* <FileInput name="cardImage" /> */}
+              <ImageInput name="cardImage" reset={activateReset} />
+              <ImageInput name="postImage" reset={activateReset} />
 
-            <br />
-            <TextField
-              className={classes.textInput}
-              margin="normal"
-              id="outlined-basic"
-              label="Caption"
-              multiline
-              rows="2"
-              variant="outlined"
-              name="caption"
-              inputProps={{ maxLength: 70, style: { width: "250px" } }}
-              defaultValue={props.editPostData.caption || ""}
-              {...register("caption")}
-            />
-            <br />
-            <TextField
-              className={classes.textInput}
-              fullWidth
-              margin="normal"
-              rows="10"
-              id="outlined-multiline-flexible"
-              label="Content"
-              multiline
-              defaultValue={props.editPostData.content || ""}
-              {...register("content")}
-            />
-          </Box>
-        </Grid>
-        <br />
-
-        <Grid item>
-          <Box display="flex">
-            <ImageUpload
-              name="cardImage"
-              displayName="Card Image"
-              previewImage={props?.editPostData?.postURLs?.[0]}
-              setImage={setPickedCardImage}
-              resetForm={resetComponent}
-            />
-            <ImageUpload
+              {/* <ImageUpload
+                name="cardImage"
+                displayName="Card Image"
+                previewImage={props?.editPostData?.postURLs?.[0]}
+                setImage={setPickedCardImage}
+                resetImage={activateReset}
+              /> */}
+              {/* <ImageUpload
               name="postImageOne"
               displayName="Post Image One"
               previewImage={props?.editPostData?.postURLs?.[1]}
               setImage={setPickedCardImageOne}
-              resetForm={resetComponent}
-            />
-            {/* <ImageUpload
+              // resetForm={resetComponent}
+            /> */}
+              {/* <ImageUpload
               name="postImageTwo"
               displayName="Post Image Two"
               previewImage={props?.editPostData?.postURLs?.[2]}
@@ -201,22 +210,23 @@ const PostForm = (props) => {
               setImage={setPickedCardImageTwo}
               resetForm={resetComponent}
             /> */}
-            {/* <input ref={register} name="cardImage" type="file" /> */}
-            {appendErrors.password && <p>{appendErrors.password.message}</p>}
-          </Box>
+              {/* <input ref={register} name="cardImage" type="file" /> */}
+              {appendErrors.password && <p>{appendErrors.password.message}</p>}
+            </Box>
+          </Grid>
+          <Grid item md={12} align="center">
+            <Button
+              type="submit"
+              color="success"
+              variant="contained"
+              className={classes.postButton}
+            >
+              {editMode === "Edit" ? "Edit" : "Post"}
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item md={12} align="center">
-          <Button
-            type="submit"
-            color="success"
-            variant="contained"
-            className={classes.postButton}
-          >
-            {editMode === "Edit" ? "Edit" : "Post"}
-          </Button>
-        </Grid>
-      </Grid>
-    </Box>
+      </Box>
+    </FormProvider>
   );
 };
 
